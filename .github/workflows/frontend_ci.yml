@@ -4,7 +4,7 @@ on:
   #Manual trigger using the workflow_dispatch event
   workflow_dispatch:
   #Automatic trigger on pull_request events to the main branch
-  pull_requests:
+  pull_request:
     branches: 
       - main
 
