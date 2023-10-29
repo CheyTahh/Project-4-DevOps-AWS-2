@@ -9,6 +9,7 @@ on:
       - main
 
 jobs:
+  #Perform linting job
   linting:
     runs-on: ubuntu-latest
     defaults:
@@ -29,6 +30,7 @@ jobs:
       - name: check code
         run: npm run lint
 
+  #Perform testing job
   testing: 
     runs-on: ubuntu-latest
     defaults:
@@ -50,6 +52,7 @@ jobs:
     - name: Run Tests
       run: npm run test
 
+  #Perform build job
   build:
     runs-on: ubuntu-latest
     defaults:

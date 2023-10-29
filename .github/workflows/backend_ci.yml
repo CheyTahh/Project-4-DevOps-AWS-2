@@ -1,0 +1,94 @@
+name: Backend - CD
+
+on:
+  # trigger on pull_request events
+  pull_request:
+    # On the main branch
+    branches:
+      - main 
+    # Only when code in backend application changes
+    paths:
+      - 'starter/backend/**'
+  
+
+jobs:
+  #Perform linting job
+  linting:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./starter/backend/
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        node-version: '3.10'
+
+    - name: Install pipenv package
+      run: pip install pipenv
+
+    - name: Install Dependencies
+      run: |
+        pipenv install
+        pipenv install flake8
+
+    - name: Run the tests
+      run: pipenv run lint  
+
+  #Perform testing job
+  testing:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./starter/backend/
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        node-version: '3.10'
+
+    - name: Install pipenv packages
+      run: pip install pipenv
+
+    - name: Install Dependencies
+      run: pipenv install
+
+    - name: Run the tests
+      run: pipenv run test
+
+  #Perform build job
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./starter/backend/
+    # build job depend on above two jobs
+    needs: [linting, testing]
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        node-version: '3.10'
+    
+    - name: Install pipenv packages
+      run: pip install pipenv
+
+    - name: Install Dependencies
+      run: |
+        pipenv install
+        pipenv install flake8
+
+    - name: Run application
+      run: pipenv run serve
