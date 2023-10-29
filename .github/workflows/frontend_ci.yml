@@ -16,20 +16,20 @@ jobs:
         working-directory: ./starter/frontend/
     steps:
       - name: Check out the code from the repository.
-      - uses: actions/checkout@v3
+        uses: actions/checkout@v3
 
       - name: Set up Node.js 
-      - uses: actions/setup-node@v3
+        uses: actions/setup-node@v3
         with:
           node-version: 18
 
       - name: Install the dependencies.
-      - run: npm install
+        run: npm install
 
       - name: check code
-      - run: npm run lint
+        run: npm run lint
 
-  test: 
+  testing: 
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -56,7 +56,7 @@ jobs:
       run:
         working-directory: ./starter/frontend/
     # build job depend on above two jobs
-    needs: [lint, test]   
+    needs: [linting, testing]   
 
     steps:
     - name: Checkout Repository
