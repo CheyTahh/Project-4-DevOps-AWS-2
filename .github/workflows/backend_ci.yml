@@ -93,4 +93,4 @@ jobs:
         pipenv install flake8
 
     - name: Run application
-      run: pipenv run serve
+      run: pipenv run test

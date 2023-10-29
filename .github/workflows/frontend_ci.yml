@@ -74,4 +74,4 @@ jobs:
       run: npm ci
 
     - name: Run local development server with hot reloading and point to the backend default
-      run: REACT_APP_MOVIE_API_URL=http://localhost:5000 npm start
+      run: npm run test
