@@ -1,4 +1,4 @@
-name: Backend - CD
+name: Backend - CI
 
 on:
   # trigger on pull_request events
